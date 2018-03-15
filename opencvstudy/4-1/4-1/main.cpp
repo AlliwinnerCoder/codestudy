@@ -89,6 +89,24 @@ int main(void)
 {
 	Mat atomImage = Mat::zeros(WINDOW_WIDTH, WINDOW_WIDTH, CV_8UC3);
 	Mat rookImage = Mat::zeros(WINDOW_WIDTH, WINDOW_WIDTH, CV_8UC3);
+	
 	DrawEllipse(atomImage, 90);
+	DrawEllipse(atomImage, 0);
+	DrawEllipse(atomImage, 0);
+	DrawEllipse(atomImage, -45);
+
+	DrawFilledCircle(atomImage, Point(WINDOW_WIDTH / 2, WINDOW_WIDTH / 2));
 	DrawPolygon(rookImage);
+
+	DrawLine(rookImage, Point(0,15 * WINDOW_WIDTH/16),Point(WINDOW_WIDTH,15 * WINDOW_WIDTH/16));
+	DrawLine(rookImage, Point(WINDOW_WIDTH/2,7 * WINDOW_WIDTH/8),Point(WINDOW_WIDTH/2,WINDOW_WIDTH));
+	DrawLine(rookImage, Point(3 * WINDOW_WIDTH / 4, 7 * WINDOW_WIDTH / 8), Point(3 * WINDOW_WIDTH / 4, WINDOW_WIDTH));
+
+	imshow(WINDOW_NAME1, atomImage);
+	moveWindow(WINDOW_NAME1, 0, 200);
+	imshow(WINDOW_NAME2, rookImage);
+	moveWindow(WINDOW_NAME2,WINDOW_WIDTH,200);
+
+	waitKey(0);
+	return(0);
 }
