@@ -33,11 +33,23 @@ static void onMouse(int event, int x, int y, int, void *)
 	if (g_bUseMask)
 	{
 		threshold(g_maskImage,g_maskImage,1,128,THRESH_BINARY);
-		area = floodFill(dst,g_maskImage,seed,newVal,)
+		area = floodFill(dst, g_maskImage, seed, newVal, &ccomp, Scalar(LowDifference, LowDifference, LowDifference), Scalar(UpDifference, UpDifference, UpDifference), flags);
+		imshow("mask", g_maskImage);
 	}
+	else
+	{
+		area = floodFill(dst, seed, newVal, &ccomp, Scalar(LowDifference, LowDifference, LowDifference), Scalar(UpDifference,UpDifference,UpDifference),flags);
+	}
+	imshow("result picture",dst);
+	cout << area << "number point reprint\n";
 }
 
-int main()
+int main(int argc,char** argv)
 {
-	
+	g_srcImage = imread("1.jpg",1);
+	g_srcImage.copyTo(g_dstImage);
+	cvtColor(g_srcImage, g_grayImage, COLOR_BGR2GRAY);
+	g_maskImage.create(g_srcImage.rows + 2, g_srcImage.cols + 2, CV_8UC1);
+	namedWindow("result",WINDOW_AUTOSIZE);
+	createTrackbar("negative","");
 }
