@@ -51,5 +51,71 @@ int main(int argc,char** argv)
 	cvtColor(g_srcImage, g_grayImage, COLOR_BGR2GRAY);
 	g_maskImage.create(g_srcImage.rows + 2, g_srcImage.cols + 2, CV_8UC1);
 	namedWindow("result",WINDOW_AUTOSIZE);
-	createTrackbar("negative","");
+	createTrackbar("negative max value","result picture",&g_nLowDifference,255,0);
+	createTrackbar("gative max value","result picture",&g_nUpDifference, 255, 0);
+	cvSetMouseCallback("result picture", onMouse, 0);
+
+	while (1)
+	{
+		imshow("result picture",g_bIsColor ? g_dstImage:g_grayImage);
+		int c = waitKey(0);
+		if ((c & 255) == 27)
+		{
+			cout << "program quit......\n";
+			break;
+		}
+
+		switch ((char)c)
+		{
+			case '1':
+				if (g_bIsColor)
+				{
+					cvtColor(g_srcImage, g_grayImage, COLOR_BGR2GRAY);
+					g_maskImage = Scalar::all(0);
+					g_bIsColor = false;
+				}
+				else
+				{
+					g_srcImage.copyTo(g_dstImage);
+					g_maskImage = Scalar::all(0);
+					g_bIsColor = true;
+				}
+				break;
+			case '2':
+				if (g_bUseMask)
+				{
+					destroyWindow("mask");
+					g_bUseMask = false;
+				}
+				else
+				{
+					namedWindow("mask", 0);
+					g_maskImage = Scalar::all(0);
+					imshow("mask",g_maskImage);
+					g_bUseMask = true;
+				}
+				break;
+			case '3':
+				g_srcImage.copyTo(g_dstImage);
+				cvtColor(g_dstImage,g_grayImage,COLOR_BGR2GRAY);
+				g_maskImage = Scalar::all(0);
+				break;
+			case '4':
+				g_nFillMode = 0;
+				break;
+			case '5':
+				g_nFillMode = 1;
+				break;
+			case '6':
+				g_nFillMode = 2;
+				break;
+			case '7':
+				g_nConnectivity = 4;
+				break;
+			case '8':
+				g_nConnectivity = 8;
+				break;
+		}
+	}
+	return 0;
 }
