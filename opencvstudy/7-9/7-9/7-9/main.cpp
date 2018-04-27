@@ -8,7 +8,7 @@ Mat g_srcImage, g_dstImage, g_midImage;
 vector<Vec4i> g_lines;
 int g_nthreshold = 100;
 
-static void on_HoughLines(int,void*)
+static void on_HoughLines(int, void*);
 
 int main()
 {
@@ -24,7 +24,6 @@ int main()
 	imshow("result picture",g_dstImage);
 	
 	waitKey(0);
-	
 	return 0;
 }
 
@@ -33,5 +32,12 @@ static void on_HoughLines(int, void *)
 	Mat dstImage = g_dstImage.clone();
 	Mat midImage = g_midImage.clone();
 
-	
+	vector<Vec4i> mylines;
+	HoughLinesP(midImage,mylines, 1, CV_PI / 180, g_nthreshold + 1, 50, 10);
+	for (size_t i = 0; i < mylines.size(); i++)
+	{
+		Vec4i l = mylines[i];
+		line(dstImage, Point(l[0], l[1]), Point(l[2], l[3]), Scalar(23,180,55),1,LINE_AA);
+	}
+	imshow("result picture",dstImage);
 }
