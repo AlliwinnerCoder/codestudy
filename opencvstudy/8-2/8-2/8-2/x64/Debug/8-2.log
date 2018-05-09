@@ -1,0 +1,2 @@
+﻿  main.cpp
+e:\codestudy\opencvstudy\8-2\8-2\8-2\main.cpp(28): error C2661: “cv::RNG::uniform”: 没有重载函数接受 1 个参数

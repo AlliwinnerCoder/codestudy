@@ -5,6 +5,12 @@
 using namespace cv;
 int main(int argc, char** argv)
 {
-	Mat srcImage = imread("1.jpg",0);
-
+	Mat srcImage, dstImage;
+	srcImage = imread("1.jpg",0);
+	cvtColor(srcImage, srcImage, COLOR_BGR2GRAY);
+	imshow("origin picture", srcImage);
+	equalizeHist(srcImage,dstImage);
+	imshow("result picture",dstImage);
+	waitKey(0);
+	return 0;
 }
