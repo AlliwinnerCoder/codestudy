@@ -28,6 +28,11 @@ int main()
 		{
 			circle(image, points[i], 3, Scalar(rng.uniform(0, 255), rng.uniform(0, 255), rng.uniform(0, 255)), FILLED, LINE_AA);
 		}
-		circle(image,center,cvRound(radius),Scalar(rng.uniform))
+		circle(image, center, cvRound(radius), Scalar(rng.uniform(0,255),rng.uniform(0,255),rng.uniform(0,255)),2,LINE_AA);
+		imshow("radius", image);
+		char key = (char)waitKey();
+		if (key == 27 || key == 'q' || key == 'Q')
+			break;
 	}
+	return 0;
 }
